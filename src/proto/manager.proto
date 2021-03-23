@@ -1,0 +1,23 @@
+// manager.proto 
+syntax = "proto3";
+package manager; 
+
+message SpawnRequest {
+    string sessionID = 1; 
+    string strategyID = 2;
+}
+
+message ManagerReply {
+    bool success = 1; 
+    string message = 2;
+    uint32 code = 3;
+}
+
+message DeletionRequest {
+    string sessionID = 1;
+}
+
+service Manager {
+    rpc SpawnStrategy(SpawnRequest) returns (ManagerReply) {}
+    rpc DeleteStrategy(DeletionRequest) returns (ManagerReply) {}
+}

@@ -2,10 +2,10 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from . import spawn_pb2 as src_dot_proto_dot_spawn__pb2
+from . import executor_pb2 as src_dot_proto_dot_executor__pb2
 
 
-class SpawnStub(object):
+class ExecutorStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -14,42 +14,42 @@ class SpawnStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.SpawnStrategy = channel.unary_unary(
-                '/spawn.Spawn/SpawnStrategy',
-                request_serializer=src_dot_proto_dot_spawn__pb2.SpawnRequest.SerializeToString,
-                response_deserializer=src_dot_proto_dot_spawn__pb2.SpawnReply.FromString,
+        self.ExecuteStrategyUpdate = channel.unary_unary(
+                '/executor.Executor/ExecuteStrategyUpdate',
+                request_serializer=src_dot_proto_dot_executor__pb2.ExecuteRequest.SerializeToString,
+                response_deserializer=src_dot_proto_dot_executor__pb2.ExecuteReply.FromString,
                 )
 
 
-class SpawnServicer(object):
+class ExecutorServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def SpawnStrategy(self, request, context):
+    def ExecuteStrategyUpdate(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_SpawnServicer_to_server(servicer, server):
+def add_ExecutorServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'SpawnStrategy': grpc.unary_unary_rpc_method_handler(
-                    servicer.SpawnStrategy,
-                    request_deserializer=src_dot_proto_dot_spawn__pb2.SpawnRequest.FromString,
-                    response_serializer=src_dot_proto_dot_spawn__pb2.SpawnReply.SerializeToString,
+            'ExecuteStrategyUpdate': grpc.unary_unary_rpc_method_handler(
+                    servicer.ExecuteStrategyUpdate,
+                    request_deserializer=src_dot_proto_dot_executor__pb2.ExecuteRequest.FromString,
+                    response_serializer=src_dot_proto_dot_executor__pb2.ExecuteReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'spawn.Spawn', rpc_method_handlers)
+            'executor.Executor', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class Spawn(object):
+class Executor(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def SpawnStrategy(request,
+    def ExecuteStrategyUpdate(request,
             target,
             options=(),
             channel_credentials=None,
@@ -59,8 +59,8 @@ class Spawn(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/spawn.Spawn/SpawnStrategy',
-            src_dot_proto_dot_spawn__pb2.SpawnRequest.SerializeToString,
-            src_dot_proto_dot_spawn__pb2.SpawnReply.FromString,
+        return grpc.experimental.unary_unary(request, target, '/executor.Executor/ExecuteStrategyUpdate',
+            src_dot_proto_dot_executor__pb2.ExecuteRequest.SerializeToString,
+            src_dot_proto_dot_executor__pb2.ExecuteReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -3,7 +3,7 @@ APP=strategies_api
 
 .PHONY: run 
 run: 
-	python3 src/main.py
+	python3 main.py
 
 .PHONY: gen-protos 
 gen-protos:
@@ -12,6 +12,7 @@ gen-protos:
 		./src/proto/*.proto
 	@echo "Generated protobufs"
 	@mv src/generated/src/proto/*.py src/generated
+	@rm -rf src/generated/src/
 
 .PHONY: docker-build 
 docker-build: 

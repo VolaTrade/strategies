@@ -2,9 +2,10 @@
 from concurrent import futures
 import grpc
 import logging
-from .generated import echo_pb2_grpc, spawn_pb2_grpc
+from .generated import echo_pb2_grpc, manager_pb2_grpc, executor_pb2_grpc
 from .echo_client import Echoer
-from .spawn_client import Spawner
+from .manager_client import Manager
+from .executor_client import Executor 
 from .commons.settings import SERVER_PORT, MAX_THREADS
 class Server:
     
@@ -13,7 +14,9 @@ class Server:
         logging.debug(f"Setting max threads to: {MAX_THREADS}")
         server = grpc.server(futures.ThreadPoolExecutor(max_workers=MAX_THREADS))
         echo_pb2_grpc.add_EchoServicer_to_server(Echoer(), server)
-        spawn_pb2_grpc.add_SpawnServicer_to_server(Spawner(), server)
+        manager_pb2_grpc.add_ManagerServicer_to_server(Manager(), server)
+        executor_pb2_grpc.add_ExecutorServicer_to_server(Executor(), server)
         server.add_insecure_port(f"[::]:{SERVER_PORT}")
+        logging.debug("Server started")
         server.start()
         server.wait_for_termination()

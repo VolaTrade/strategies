@@ -1,6 +1,6 @@
 from .strategy_interface import StrategyInterface
 
-class TestStrategy(StrategyInterface):
+class BiStrategy(StrategyInterface):
 
     def __init__(self):
         super().__init__()
