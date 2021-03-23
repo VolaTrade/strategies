@@ -12,6 +12,3 @@ class StrategyInterface(ABC):
     @abstractmethod
     def check_sell(self, indicators):
         return False
-
-
-
