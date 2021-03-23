@@ -4,7 +4,8 @@ from .commons.globals import LiveStrategies
 from .commons.status_codes import StatusCode 
 import logging
 
-not_valid = lambda value: True if value is None else False
+not_valid = lambda value: True if len(value) == 0 else False
+
 def generate_response(message: str, code: StatusCode, update_value:bool=None):
     response = executor_pb2.ExecuteReply(
                             value=update_value,
@@ -24,16 +25,13 @@ class Executor(executor_pb2_grpc.ExecutorServicer):
         if not_valid(request.stratParams):
             return generate_response("stratParams missing", StatusCode.INVALID_ARGUMENT.value)
 
-        if not_valid(request.buyUpdate):
-            return generate_response("buyUpdate missing", StatusCode.INVALID_ARGUMENT.value)
-
         if request.sessionID not in LiveStrategies:
-            return generate_response("SessionID not found", StatusCode.NOT_FOUND.value)
+            return generate_response("sessionID not found", StatusCode.NOT_FOUND.value)
         
         strat_class = LiveStrategies[request.sessionID]
 
         if set(request.stratParams.keys()) != set(strat_class.indicators):
-            return generate_response("Parameters provided are incorrect for strategy", StatusCode.INVALID_ARGUMENT.value)
+            return generate_response("parameters provided are incorrect for strategy", StatusCode.INVALID_ARGUMENT.value)
 
         if request.buyUpdate is True: 
             update_value = strat_class.check_buy(request.stratParams)
@@ -41,4 +39,4 @@ class Executor(executor_pb2_grpc.ExecutorServicer):
         else:
             update_value = strat_class.check_sell(request.stratParams)
 
-        return generate_response("Ok", StatusCode.OK.value, update_value=update_value)
+        return generate_response("ok", StatusCode.OK.value, update_value=update_value)

@@ -4,7 +4,7 @@ from .commons.globals import LiveStrategies, get_strategy
 from .commons.status_codes import StatusCode
 import logging
 
-not_valid = lambda value: True if value is None else False
+not_valid = lambda value: True if len(value) == 0 else False
 
 def generate_spawn_response(message: str, code: StatusCode, params:dict=None):
     response = manager_pb2.SpawnReply(
@@ -15,9 +15,8 @@ def generate_spawn_response(message: str, code: StatusCode, params:dict=None):
     logging.debug(response)
     return response
 
-def generate_deletion_response(buyUpdate: bool, message: str, code: StatusCode):
+def generate_deletion_response(message: str, code: StatusCode):
     response = manager_pb2.DeletionReply(
-                            buyUpdate=buyUpdate,
                             message=message,
                             code=code
                             )
@@ -30,13 +29,13 @@ class Manager(manager_pb2_grpc.ManagerServicer):
 
         logging.debug(f"sessionID: {request.sessionID} , strategyID: {request.strategyID}")
         if not_valid(request.sessionID):
-            return generate_spawn_response("SessionID missing", StatusCode.INVALID_ARGUMENT.value)
+            return generate_spawn_response("sessionID missing", StatusCode.INVALID_ARGUMENT.value)
 
         if not_valid(request.strategyID):
-            return generate_spawn_response("StrategyID missing", StatusCode.INVALID_ARGUMENT.value)
+            return generate_spawn_response("strategyID missing", StatusCode.INVALID_ARGUMENT.value)
 
         if request.sessionID in LiveStrategies:
-            return generate_spawn_response("Session already exists", StatusCode.ALREADY_EXISTS.value)
+            return generate_spawn_response("session already exists", StatusCode.ALREADY_EXISTS.value)
 
         strategy_class = None 
         try: 
@@ -47,21 +46,21 @@ class Manager(manager_pb2_grpc.ManagerServicer):
             return generate_spawn_response("Strategy provided not found", StatusCode.NOT_FOUND.value)
 
         LiveStrategies[request.sessionID] = strategy_class
-        return generate_spawn_response("Ok", StatusCode.OK.value, params=strategy_class.indicators)
+        return generate_spawn_response("ok", StatusCode.OK.value, params=strategy_class.indicators)
     
     def DeleteStrategy(self, request, context):
         logging.debug(f"sessionID: {request.sessionID}")
 
         if not_valid(request.sessionID):
-            return generate_response(False, "SessionID missing", StatusCode.INVALID_ARGUMENT.value)
+            return generate_deletion_response("sessionID missing", StatusCode.INVALID_ARGUMENT.value)
 
 
         if request.sessionID not in LiveStrategies:
-            return generate_response(False, "SessionID not found", StatusCode.NOT_FOUND.value)
+            return generate_deletion_response("sessionID not found", StatusCode.NOT_FOUND.value)
 
         del LiveStrategies[request.sessionID]
         logging.debug(f"Deleted session: {request.sessionID}")
-        return generate_response(True, "Ok", StatusCode.OK.value)
+        return generate_deletion_response("ok", StatusCode.OK.value)
 
 
 

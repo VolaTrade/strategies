@@ -9,10 +9,10 @@ from src.generated import echo_pb2_grpc, manager_pb2_grpc, executor_pb2_grpc
 
 
 def run():
-    # with grpc.insecure_channel(f'localhost:{SERVER_PORT}') as channel:
-    #     stub = manager_pb2_grpc.ManagerStub(channel)
-    #     response = stub.SpawnStrategy(manager_pb2.SpawnRequest(sessionID="101", strategyID="TestStrategy"))
-    # print("Response --> ", response)
+    with grpc.insecure_channel(f'localhost:{SERVER_PORT}') as channel:
+        stub = manager_pb2_grpc.ManagerStub(channel)
+        response = stub.SpawnStrategy(manager_pb2.SpawnRequest(sessionID="101", strategyID="TestStrategy"))
+    print("Response --> ", response)
 
     with grpc.insecure_channel(f'localhost:{SERVER_PORT}') as channel:
         stub = executor_pb2_grpc.ExecutorStub(channel)
