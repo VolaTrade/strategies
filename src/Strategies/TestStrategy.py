@@ -4,10 +4,10 @@ class TestStrategy(StrategyInterface):
 
     def __init__(self):
         super().__init__()
-        self.value_list = []
+        self.indicators = ['pederson_confidence']
 
     def check_buy(self, params):
-        if params['pedersen_confidence'] > .59:
+        if params['pederson_confidence'] > .59:
             return True
 
     def check_sell(self, params):

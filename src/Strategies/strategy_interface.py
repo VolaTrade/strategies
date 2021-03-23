@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 class StrategyInterface(ABC):
 
     def __init__(self):
-        pass
+        self.indicators = []
     
     @abstractmethod
     def check_buy(self, indicators):

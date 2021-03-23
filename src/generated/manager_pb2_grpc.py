@@ -17,12 +17,12 @@ class ManagerStub(object):
         self.SpawnStrategy = channel.unary_unary(
                 '/manager.Manager/SpawnStrategy',
                 request_serializer=src_dot_proto_dot_manager__pb2.SpawnRequest.SerializeToString,
-                response_deserializer=src_dot_proto_dot_manager__pb2.ManagerReply.FromString,
+                response_deserializer=src_dot_proto_dot_manager__pb2.SpawnReply.FromString,
                 )
         self.DeleteStrategy = channel.unary_unary(
                 '/manager.Manager/DeleteStrategy',
                 request_serializer=src_dot_proto_dot_manager__pb2.DeletionRequest.SerializeToString,
-                response_deserializer=src_dot_proto_dot_manager__pb2.ManagerReply.FromString,
+                response_deserializer=src_dot_proto_dot_manager__pb2.DeletionReply.FromString,
                 )
 
 
@@ -47,12 +47,12 @@ def add_ManagerServicer_to_server(servicer, server):
             'SpawnStrategy': grpc.unary_unary_rpc_method_handler(
                     servicer.SpawnStrategy,
                     request_deserializer=src_dot_proto_dot_manager__pb2.SpawnRequest.FromString,
-                    response_serializer=src_dot_proto_dot_manager__pb2.ManagerReply.SerializeToString,
+                    response_serializer=src_dot_proto_dot_manager__pb2.SpawnReply.SerializeToString,
             ),
             'DeleteStrategy': grpc.unary_unary_rpc_method_handler(
                     servicer.DeleteStrategy,
                     request_deserializer=src_dot_proto_dot_manager__pb2.DeletionRequest.FromString,
-                    response_serializer=src_dot_proto_dot_manager__pb2.ManagerReply.SerializeToString,
+                    response_serializer=src_dot_proto_dot_manager__pb2.DeletionReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -77,7 +77,7 @@ class Manager(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/manager.Manager/SpawnStrategy',
             src_dot_proto_dot_manager__pb2.SpawnRequest.SerializeToString,
-            src_dot_proto_dot_manager__pb2.ManagerReply.FromString,
+            src_dot_proto_dot_manager__pb2.SpawnReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -94,6 +94,6 @@ class Manager(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/manager.Manager/DeleteStrategy',
             src_dot_proto_dot_manager__pb2.DeletionRequest.SerializeToString,
-            src_dot_proto_dot_manager__pb2.ManagerReply.FromString,
+            src_dot_proto_dot_manager__pb2.DeletionReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

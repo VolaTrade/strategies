@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x17src/proto/manager.proto\x12\x07manager\"5\n\x0cSpawnRequest\x12\x11\n\tsessionID\x18\x01 \x01(\t\x12\x12\n\nstrategyID\x18\x02 \x01(\t\">\n\x0cManagerReply\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0c\n\x04\x63ode\x18\x03 \x01(\r\"$\n\x0f\x44\x65letionRequest\x12\x11\n\tsessionID\x18\x01 \x01(\t2\x8f\x01\n\x07Manager\x12?\n\rSpawnStrategy\x12\x15.manager.SpawnRequest\x1a\x15.manager.ManagerReply\"\x00\x12\x43\n\x0e\x44\x65leteStrategy\x12\x18.manager.DeletionRequest\x1a\x15.manager.ManagerReply\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x17src/proto/manager.proto\x12\x07manager\"5\n\x0cSpawnRequest\x12\x11\n\tsessionID\x18\x01 \x01(\t\x12\x12\n\nstrategyID\x18\x02 \x01(\t\"?\n\nSpawnReply\x12\x12\n\nindicators\x18\x01 \x03(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0c\n\x04\x63ode\x18\x03 \x01(\r\"$\n\x0f\x44\x65letionRequest\x12\x11\n\tsessionID\x18\x01 \x01(\t\".\n\rDeletionReply\x12\x0f\n\x07message\x18\x01 \x01(\t\x12\x0c\n\x04\x63ode\x18\x02 \x01(\r2\x8e\x01\n\x07Manager\x12=\n\rSpawnStrategy\x12\x15.manager.SpawnRequest\x1a\x13.manager.SpawnReply\"\x00\x12\x44\n\x0e\x44\x65leteStrategy\x12\x18.manager.DeletionRequest\x1a\x16.manager.DeletionReply\"\x00\x62\x06proto3'
 )
 
 
@@ -64,30 +64,30 @@ _SPAWNREQUEST = _descriptor.Descriptor(
 )
 
 
-_MANAGERREPLY = _descriptor.Descriptor(
-  name='ManagerReply',
-  full_name='manager.ManagerReply',
+_SPAWNREPLY = _descriptor.Descriptor(
+  name='SpawnReply',
+  full_name='manager.SpawnReply',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='success', full_name='manager.ManagerReply.success', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
+      name='indicators', full_name='manager.SpawnReply.indicators', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='message', full_name='manager.ManagerReply.message', index=1,
+      name='message', full_name='manager.SpawnReply.message', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='code', full_name='manager.ManagerReply.code', index=2,
+      name='code', full_name='manager.SpawnReply.code', index=2,
       number=3, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -106,7 +106,7 @@ _MANAGERREPLY = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=91,
-  serialized_end=153,
+  serialized_end=154,
 )
 
 
@@ -137,13 +137,53 @@ _DELETIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=155,
-  serialized_end=191,
+  serialized_start=156,
+  serialized_end=192,
+)
+
+
+_DELETIONREPLY = _descriptor.Descriptor(
+  name='DeletionReply',
+  full_name='manager.DeletionReply',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='message', full_name='manager.DeletionReply.message', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='code', full_name='manager.DeletionReply.code', index=1,
+      number=2, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=194,
+  serialized_end=240,
 )
 
 DESCRIPTOR.message_types_by_name['SpawnRequest'] = _SPAWNREQUEST
-DESCRIPTOR.message_types_by_name['ManagerReply'] = _MANAGERREPLY
+DESCRIPTOR.message_types_by_name['SpawnReply'] = _SPAWNREPLY
 DESCRIPTOR.message_types_by_name['DeletionRequest'] = _DELETIONREQUEST
+DESCRIPTOR.message_types_by_name['DeletionReply'] = _DELETIONREPLY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 SpawnRequest = _reflection.GeneratedProtocolMessageType('SpawnRequest', (_message.Message,), {
@@ -153,12 +193,12 @@ SpawnRequest = _reflection.GeneratedProtocolMessageType('SpawnRequest', (_messag
   })
 _sym_db.RegisterMessage(SpawnRequest)
 
-ManagerReply = _reflection.GeneratedProtocolMessageType('ManagerReply', (_message.Message,), {
-  'DESCRIPTOR' : _MANAGERREPLY,
+SpawnReply = _reflection.GeneratedProtocolMessageType('SpawnReply', (_message.Message,), {
+  'DESCRIPTOR' : _SPAWNREPLY,
   '__module__' : 'src.proto.manager_pb2'
-  # @@protoc_insertion_point(class_scope:manager.ManagerReply)
+  # @@protoc_insertion_point(class_scope:manager.SpawnReply)
   })
-_sym_db.RegisterMessage(ManagerReply)
+_sym_db.RegisterMessage(SpawnReply)
 
 DeletionRequest = _reflection.GeneratedProtocolMessageType('DeletionRequest', (_message.Message,), {
   'DESCRIPTOR' : _DELETIONREQUEST,
@@ -166,6 +206,13 @@ DeletionRequest = _reflection.GeneratedProtocolMessageType('DeletionRequest', (_
   # @@protoc_insertion_point(class_scope:manager.DeletionRequest)
   })
 _sym_db.RegisterMessage(DeletionRequest)
+
+DeletionReply = _reflection.GeneratedProtocolMessageType('DeletionReply', (_message.Message,), {
+  'DESCRIPTOR' : _DELETIONREPLY,
+  '__module__' : 'src.proto.manager_pb2'
+  # @@protoc_insertion_point(class_scope:manager.DeletionReply)
+  })
+_sym_db.RegisterMessage(DeletionReply)
 
 
 
@@ -176,8 +223,8 @@ _MANAGER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=194,
-  serialized_end=337,
+  serialized_start=243,
+  serialized_end=385,
   methods=[
   _descriptor.MethodDescriptor(
     name='SpawnStrategy',
@@ -185,7 +232,7 @@ _MANAGER = _descriptor.ServiceDescriptor(
     index=0,
     containing_service=None,
     input_type=_SPAWNREQUEST,
-    output_type=_MANAGERREPLY,
+    output_type=_SPAWNREPLY,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -195,7 +242,7 @@ _MANAGER = _descriptor.ServiceDescriptor(
     index=1,
     containing_service=None,
     input_type=_DELETIONREQUEST,
-    output_type=_MANAGERREPLY,
+    output_type=_DELETIONREPLY,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
