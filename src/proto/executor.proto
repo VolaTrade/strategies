@@ -1,0 +1,19 @@
+//updater.proto
+syntax = "proto3";
+package executor; 
+
+message ExecuteRequest {
+    map<string, double> stratParams = 1;
+    bool buyUpdate = 2;
+    string sessionID = 3;  
+}
+
+message ExecuteReply {
+    bool value = 1; 
+    string message = 2;
+    uint32 code = 3;
+}
+
+service Executor {
+    rpc ExecuteStrategyUpdate(ExecuteRequest) returns (ExecuteReply) {}
+}
