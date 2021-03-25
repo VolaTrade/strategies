@@ -61,7 +61,3 @@ class Manager(manager_pb2_grpc.ManagerServicer):
         del LiveStrategies[request.sessionID]
         logging.debug(f"Deleted session: {request.sessionID}")
         return generate_deletion_response("ok", StatusCode.OK.value)
-
-
-
-
