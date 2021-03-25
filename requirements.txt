@@ -1,2 +1,2 @@
 pytest==5.1.2             # via -r test.in, pytest-datadir, pytest-flask-sqlalchemy, pytest-mock
-
+google==3.0.0
