@@ -11,6 +11,9 @@ jobs:
       - python/load-cache
       - python/install-deps
       - python/save-cache
+      -run: 
+          command: touch src/__init__.py
+          name: Initializing /src as Python Module
       - run:
           command: python3 -m pytest test*.py
           name: Test
