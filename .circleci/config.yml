@@ -14,6 +14,10 @@ jobs:
       - run: 
           command: touch src/__init__.py
           name: Initializing /src as Python Module
+
+      - run:
+          command: mv src/Strategies strategies 
+          name: Renaming strategies :)
       - run:
           command: python3 -m pytest test*.py
           name: Test
