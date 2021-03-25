@@ -14,7 +14,7 @@ jobs:
       -run: 
           command: touch src/__init__.py
           name: Initializing /src as Python Module
-      - run:
+      -run:
           command: python3 -m pytest test*.py
           name: Test
 
