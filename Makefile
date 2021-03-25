@@ -20,7 +20,7 @@ docker-build:
 
 .PHONY: docker-run 
 docker-run: 
-	docker run --name $(APP) $(IMG)
+	docker run -d --name $(APP) -p 9000:9000 $(IMG)
 
 .PHONY: docker-down
 docker-down:
