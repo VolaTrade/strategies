@@ -105,9 +105,9 @@ class TestExecutor:
 
         assert resp.message == "ok" 
         assert resp.code == StatusCode.OK.value
-        assert resp.value == True
-        assert es.buyHit == True 
-        assert es.sellHit == None 
+        assert resp.value is True
+        assert es.buyHit is True 
+        assert es.sellHit is None 
 
     def test_sell_update_success(self):
         es = ExampleStrategy()
@@ -117,6 +117,6 @@ class TestExecutor:
 
         assert resp.message == "ok" 
         assert resp.code == StatusCode.OK.value
-        assert resp.value == False
-        assert es.buyHit == None 
-        assert es.sellHit == True
+        assert resp.value is False
+        assert es.buyHit is None 
+        assert es.sellHit is True
