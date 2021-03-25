@@ -17,7 +17,7 @@ jobs:
 
       - run:
           command: mv src/Strategies src/strategies 
-          name: Renaming strategies :)
+          name: Renaming Strategies  
       - run:
           command: python3 -m pytest test*.py
           name: Test
