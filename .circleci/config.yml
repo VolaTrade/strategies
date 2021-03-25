@@ -16,7 +16,7 @@ jobs:
           name: Initializing /src as Python Module
 
       - run:
-          command: mv src/Strategies strategies 
+          command: mv src/Strategies src/strategies 
           name: Renaming strategies :)
       - run:
           command: python3 -m pytest test*.py
