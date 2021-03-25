@@ -1,4 +1,4 @@
-# Strategies
+# Strategies [![CodeFactor](https://www.codefactor.io/repository/github/volatrade/strategies/badge?s=5991d4039cf03f09f2ec7d22427b50f30432b0b5)](https://www.codefactor.io/repository/github/volatrade/strategies)
 
 ### Strategy Development 
 
