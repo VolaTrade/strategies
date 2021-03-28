@@ -26,3 +26,7 @@ docker-run:
 docker-down:
 	docker stop $(APP)
 	docker rm $(APP)
+
+.PHONY: test
+test:
+	pytest -v -rx tests.py

@@ -4,7 +4,107 @@ from src.generated import executor_pb2, manager_pb2
 from src.commons.status_codes import StatusCode 
 from src.commons.globals import LiveStrategies
 from src.strategies.ExampleStrategy import ExampleStrategy
+from src.profitmargin.stoploss import StopLoss
+from src.strategies.strategy import Strategy 
 
+class TestStopWithStrategy():
+    def test_stop_loss_returns_sell_upon_criteria_meet(self):
+        ex = ExampleStrategy(stoploss=True, trailing=True, percent=25.5)
+
+        iter1 = ex.check_sell(
+            {
+                "pederson_confidence": .9, 
+                "price":    100.0,
+            },
+        )
+        assert iter1 is False
+
+        iter2 = ex.check_sell(
+            {
+                "pederson_confidence": .9, 
+                "price":    74.5,
+            },
+        )
+        assert iter2 is True
+
+    def test_stop_loss_doesnt_work_when_not_activated(self):
+        ex = ExampleStrategy(stoploss=False)
+
+        try:
+            ex.check_sell(
+                    {"price":    100.0},
+                )
+        except Strategy.IndicatorArgException as e:
+            assert True
+
+
+
+class TestStopLossNonTrailing():
+
+    def test_non_trailing_works(self):
+        sl = StopLoss(percent=10.0, trailing=False)
+        sl.percent = 10.0
+        sl.update(100.0)
+        sl.update(150.0)
+
+        expected = True 
+        actual = sl.update(89.99)
+
+class TestTrailingStop():
+
+        def test_sell_logic_float_greater_than_ten(self):
+
+            sl = StopLoss()
+            sl.percent = 25.5
+            sl.update(100.0)
+            expected = True 
+            actual = sl.update(74.5)
+
+            assert expected ==  actual
+
+
+        def test_sell_logic_int_greater_than_ten(self):
+
+
+            sl = StopLoss()
+            sl.percent = 25
+            sl.update(100.0)
+            expected = True 
+            actual = sl.update(75.0)
+
+            assert expected ==  actual
+
+        def test_sell_logic_float_less_than_ten(self):
+
+            sl = StopLoss()
+            sl.percent = 1.1
+            sl.update(100.0)
+            expected = 98.9 
+            actual = sl.stop_value
+            
+            assert expected ==  actual
+
+
+        def test_sell_logic_int_less_than_ten(self):
+
+            sl = StopLoss()
+            sl.percent = 1
+            sl.update(100.0)
+            expected = 99.0
+            actual = sl.stop_value
+
+            assert expected ==  actual
+
+        
+        def test_sel_lLogic_int_equal_ten(self):
+
+            sl = StopLoss()
+            sl.percent = 10
+            sl.update(100.0)
+            expected = 90.0
+            actual = sl.stop_value
+
+            assert expected ==  actual
 
 class TestManagerSpawn:
 

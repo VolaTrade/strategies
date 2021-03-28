@@ -2,13 +2,16 @@
 from .generated import manager_pb2_grpc, manager_pb2
 from .commons.globals import LiveStrategies, get_strategy
 from .commons.status_codes import StatusCode
+from .commons.decorators import timeit
+
 import logging
 
 not_valid = lambda value: True if len(value) == 0 else False
 
-def generate_spawn_response(message: str, code: StatusCode, params:dict=None):
+def generate_spawn_response(message: str, code: StatusCode, buy_params:dict=None, sell_params:dict=None):
     response = manager_pb2.SpawnReply(
-                            indicators=params,
+                            buyIndicators=buy_params,
+                            sellIndicators=sell_params,
                             message=message,
                             code=code
                             )
@@ -24,7 +27,8 @@ def generate_deletion_response(message: str, code: StatusCode):
     return response
 
 class Manager(manager_pb2_grpc.ManagerServicer):
-
+    
+    @timeit
     def SpawnStrategy(self, request, context):
 
         logging.debug(f"sessionID: {request.sessionID} , strategyID: {request.strategyID}")
@@ -46,11 +50,18 @@ class Manager(manager_pb2_grpc.ManagerServicer):
             return generate_spawn_response("Strategy provided not found", StatusCode.NOT_FOUND.value)
 
         LiveStrategies[request.sessionID] = strategy_class
-        return generate_spawn_response("ok", StatusCode.OK.value, params=strategy_class.indicators)
-    
-    def DeleteStrategy(self, request, context):
-        logging.debug(f"sessionID: {request.sessionID}")
+        return generate_spawn_response(
+                                    "ok",
+                                    StatusCode.OK.value,
+                                    buy_params=strategy_class.buy_indicators,
+                                    sell_params=strategy_class.sell_indicators
+                                    )
 
+    @timeit
+    def DeleteStrategy(self, request, context):
+
+        logging.debug(f"sessionID: {request.sessionID}")
+        
         if not_valid(request.sessionID):
             return generate_deletion_response("sessionID missing", StatusCode.INVALID_ARGUMENT.value)
 
