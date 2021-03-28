@@ -1,5 +1,6 @@
 #spawn_client.py 
-from .generated import manager_pb2_grpc, manager_pb2
+from .generated.manager_pb2_grpc import ManagerServicer
+from .generated.manager_pb2 import SpawnRequest, SpawnReply, DeletionRequest, DeletionReply
 from .commons.globals import LiveStrategies, get_strategy
 from .commons.status_codes import StatusCode
 from .commons.decorators import timeit
@@ -8,8 +9,11 @@ import logging
 
 not_valid = lambda value: True if len(value) == 0 else False
 
-def generate_spawn_response(message: str, code: StatusCode, buy_params:dict=None, sell_params:dict=None):
-    response = manager_pb2.SpawnReply(
+def generate_spawn_response(message: str, code: StatusCode, 
+                            buy_params: dict=None, sell_params: dict=None,
+                           ) -> (SpawnReply):
+
+    response = SpawnReply(
                             buyIndicators=buy_params,
                             sellIndicators=sell_params,
                             message=message,
@@ -18,18 +22,19 @@ def generate_spawn_response(message: str, code: StatusCode, buy_params:dict=None
     logging.debug(response)
     return response
 
-def generate_deletion_response(message: str, code: StatusCode):
-    response = manager_pb2.DeletionReply(
+def generate_deletion_response(message: str, code: StatusCode) -> (DeletionReply):
+
+    response = DeletionReply(
                             message=message,
                             code=code
                             )
     logging.debug(response)
     return response
 
-class Manager(manager_pb2_grpc.ManagerServicer):
+class Manager(ManagerServicer):
     
     @timeit
-    def SpawnStrategy(self, request, context):
+    def SpawnStrategy(self, request: SpawnRequest, context) -> (SpawnReply):
 
         logging.debug(f"sessionID: {request.sessionID} , strategyID: {request.strategyID}")
         if not_valid(request.sessionID):
@@ -58,7 +63,7 @@ class Manager(manager_pb2_grpc.ManagerServicer):
                                     )
 
     @timeit
-    def DeleteStrategy(self, request, context):
+    def DeleteStrategy(self, request: DeletionRequest, context) -> (DeletionReply):
 
         logging.debug(f"sessionID: {request.sessionID}")
         

@@ -1,5 +1,6 @@
 #executer_client 
-from .generated import executor_pb2, executor_pb2_grpc
+from .generated.executor_pb2_grpc import ExecutorServicer
+from .generated.executor_pb2 import ExecuteRequest, ExecuteReply 
 from .commons.globals import LiveStrategies
 from .commons.status_codes import StatusCode
 from .commons.decorators import timeit 
@@ -8,8 +9,8 @@ import logging
 
 not_valid = lambda value: True if len(value) == 0 else False
 
-def generate_response(message: str, code: StatusCode, update_value:bool=None):
-    response = executor_pb2.ExecuteReply(
+def generate_response(message: str, code: StatusCode, update_value: bool=None) -> (ExecuteReply):
+    response = ExecuteReply(
                             value=update_value,
                             message=message,
                             code=code
@@ -17,10 +18,10 @@ def generate_response(message: str, code: StatusCode, update_value:bool=None):
     logging.debug(response)
     return response
 
-class Executor(executor_pb2_grpc.ExecutorServicer):
+class Executor(ExecutorServicer):
 
     @timeit
-    def ExecuteStrategyUpdate(self, request, context):
+    def ExecuteStrategyUpdate(self, request: ExecuteRequest, context) -> (ExecuteReply):
         logging.debug(f"sessionID: {request.sessionID} , stratParams: {request.stratParams}, buyUpdate: {request.buyUpdate}")
         if not_valid(request.sessionID):
             return generate_response("sessionID missing", StatusCode.INVALID_ARGUMENT.value)

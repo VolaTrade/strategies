@@ -6,7 +6,7 @@ Stop Loss Logic
 
 class StopLoss:
 
-    def __init__(self, trailing=True, percent=10.0):
+    def __init__(self, trailing: bool=True, percent: float=10.0):
         # Global variables
         self.percent: float = percent  # PercentSL...input by user : DEFAULT 0
         self.global_high: float = 0  # global high ..ie highest value found in session : DEFAULT 0
@@ -26,7 +26,7 @@ class StopLoss:
         self.last_price: float = 0  # last given price... updated in function call : DEFAULT 0
         self.stop_value: float = 0  # Value that program will sell upon
 
-    def __repr__(self):
+    def __repr__(self) -> (str):
         """
         string representation
         """
@@ -38,7 +38,7 @@ class StopLoss:
                     """
                   )
 
-    def update(self, price: float)->(bool):
+    def update(self, price: float) -> (bool):
         """
         @:param price
         @:returns boolean based on percentageSL
