@@ -30,10 +30,13 @@ class StopLoss:
         """
         string representation
         """
-        return str(
-                "Current price :" + str(self.current_price) + "\n" + "Global high :" + str(
-                self.global_high) + "\n" + "Stop loss value :" + str(self.stop_value) + "\n" + "Stop loss percent :" + str(
-                self.percent) + "\n")
+        return str(f"""
+                       Current price : str(self.current_price) \n 
+                       Global high : str(self.global_high) \n 
+                       Stop loss value : str(self.stop_value) \n 
+                       Stop loss percent :" + str(self.percent) \n
+                    """
+                  )
 
     def update(self, price: float)->(bool):
         """
