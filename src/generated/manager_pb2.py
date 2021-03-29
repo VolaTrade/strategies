@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x17src/proto/manager.proto\x12\x07manager\"5\n\x0cSpawnRequest\x12\x11\n\tsessionID\x18\x01 \x01(\t\x12\x12\n\nstrategyID\x18\x02 \x01(\t\"?\n\nSpawnReply\x12\x12\n\nindicators\x18\x01 \x03(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0c\n\x04\x63ode\x18\x03 \x01(\r\"$\n\x0f\x44\x65letionRequest\x12\x11\n\tsessionID\x18\x01 \x01(\t\".\n\rDeletionReply\x12\x0f\n\x07message\x18\x01 \x01(\t\x12\x0c\n\x04\x63ode\x18\x02 \x01(\r2\x8e\x01\n\x07Manager\x12=\n\rSpawnStrategy\x12\x15.manager.SpawnRequest\x1a\x13.manager.SpawnReply\"\x00\x12\x44\n\x0e\x44\x65leteStrategy\x12\x18.manager.DeletionRequest\x1a\x16.manager.DeletionReply\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x17src/proto/manager.proto\x12\x07manager\"j\n\x0cSpawnRequest\x12\x11\n\tsessionID\x18\x01 \x01(\t\x12\x12\n\nstrategyID\x18\x02 \x01(\t\x12\x10\n\x08stopLoss\x18\x03 \x01(\x08\x12\x10\n\x08trailing\x18\x04 \x01(\x08\x12\x0f\n\x07percent\x18\x05 \x01(\x01\"Z\n\nSpawnReply\x12\x15\n\rbuyIndicators\x18\x01 \x03(\t\x12\x16\n\x0esellIndicators\x18\x02 \x03(\t\x12\x0f\n\x07message\x18\x03 \x01(\t\x12\x0c\n\x04\x63ode\x18\x04 \x01(\r\"$\n\x0f\x44\x65letionRequest\x12\x11\n\tsessionID\x18\x01 \x01(\t\".\n\rDeletionReply\x12\x0f\n\x07message\x18\x01 \x01(\t\x12\x0c\n\x04\x63ode\x18\x02 \x01(\r2\x8e\x01\n\x07Manager\x12=\n\rSpawnStrategy\x12\x15.manager.SpawnRequest\x1a\x13.manager.SpawnReply\"\x00\x12\x44\n\x0e\x44\x65leteStrategy\x12\x18.manager.DeletionRequest\x1a\x16.manager.DeletionReply\"\x00\x62\x06proto3'
 )
 
 
@@ -47,6 +47,27 @@ _SPAWNREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='stopLoss', full_name='manager.SpawnRequest.stopLoss', index=2,
+      number=3, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='trailing', full_name='manager.SpawnRequest.trailing', index=3,
+      number=4, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='percent', full_name='manager.SpawnRequest.percent', index=4,
+      number=5, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -60,7 +81,7 @@ _SPAWNREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=36,
-  serialized_end=89,
+  serialized_end=142,
 )
 
 
@@ -73,22 +94,29 @@ _SPAWNREPLY = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='indicators', full_name='manager.SpawnReply.indicators', index=0,
+      name='buyIndicators', full_name='manager.SpawnReply.buyIndicators', index=0,
       number=1, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='message', full_name='manager.SpawnReply.message', index=1,
-      number=2, type=9, cpp_type=9, label=1,
+      name='sellIndicators', full_name='manager.SpawnReply.sellIndicators', index=1,
+      number=2, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='message', full_name='manager.SpawnReply.message', index=2,
+      number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='code', full_name='manager.SpawnReply.code', index=2,
-      number=3, type=13, cpp_type=3, label=1,
+      name='code', full_name='manager.SpawnReply.code', index=3,
+      number=4, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -105,8 +133,8 @@ _SPAWNREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=91,
-  serialized_end=154,
+  serialized_start=144,
+  serialized_end=234,
 )
 
 
@@ -137,8 +165,8 @@ _DELETIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=156,
-  serialized_end=192,
+  serialized_start=236,
+  serialized_end=272,
 )
 
 
@@ -176,8 +204,8 @@ _DELETIONREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=194,
-  serialized_end=240,
+  serialized_start=274,
+  serialized_end=320,
 )
 
 DESCRIPTOR.message_types_by_name['SpawnRequest'] = _SPAWNREQUEST
@@ -223,8 +251,8 @@ _MANAGER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=243,
-  serialized_end=385,
+  serialized_start=323,
+  serialized_end=465,
   methods=[
   _descriptor.MethodDescriptor(
     name='SpawnStrategy',

@@ -5,12 +5,16 @@ package manager;
 message SpawnRequest {
     string sessionID = 1; 
     string strategyID = 2;
+    bool stopLoss = 3;
+    bool trailing = 4;
+    double percent = 5;
 }
 
 message SpawnReply {
-    repeated string indicators = 1; 
-    string message = 2;
-    uint32 code = 3;
+    repeated string buyIndicators = 1; 
+    repeated string sellIndicators =2;
+    string message = 3;
+    uint32 code = 4;
 }
 
 message DeletionRequest {
