@@ -29,7 +29,7 @@ class Strategy():
 
                 if provided_indicators != desired_indicators:
                     raise self.IndicatorArgException(f"""
-                                                        Provided indicator keys don't match desired ones by strategy \n
+                                                        Provided indicator keys don't match desired ones by strategy\n
                                                         Expected: {desired_indicators}\n
                                                         Actual: {provided_indicators}
                                                       """

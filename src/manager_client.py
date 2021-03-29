@@ -66,10 +66,8 @@ class Manager(ManagerServicer):
     def DeleteStrategy(self, request: DeletionRequest, context) -> (DeletionReply):
 
         logging.debug(f"sessionID: {request.sessionID}")
-        
         if not_valid(request.sessionID):
             return generate_deletion_response("sessionID missing", StatusCode.INVALID_ARGUMENT.value)
-
 
         if request.sessionID not in LiveStrategies:
             return generate_deletion_response("sessionID not found", StatusCode.NOT_FOUND.value)
