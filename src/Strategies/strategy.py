@@ -24,8 +24,8 @@ class Strategy():
     def validate_params(buy: bool) -> (F):
         def validate_decorator(func: F) -> (F):
             def validation_wrapper(self, *args, **kw) -> (F):
-                provided_indicators = set([e for e in args[0].keys()])
-                desired_indicators = set(self.buy_indicators if buy else self.sell_indicators)
+                provided_indicators: set[str] = set([e for e in args[0].keys()])
+                desired_indicators: set[str] = set(self.buy_indicators if buy else self.sell_indicators)
 
                 if provided_indicators != desired_indicators:
                     raise self.IndicatorArgException(f"""
