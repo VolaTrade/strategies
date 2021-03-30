@@ -48,7 +48,11 @@ class Manager(ManagerServicer):
 
         strategy_class = None 
         try: 
-            strategy_class = get_strategy(request.strategyID)()
+            strategy_class = get_strategy(request.strategyID)(
+                request.stopLoss,
+                request.trailing,
+                request.percent,
+            )
 
         except Exception as e:
             logging.error(e)

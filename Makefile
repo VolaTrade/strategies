@@ -30,3 +30,8 @@ docker-down:
 .PHONY: test
 test:
 	pytest -v -rx tests.py
+
+.PHONY: upload-protos 
+upload-protos:
+	@cd ops/protohook && docker-compose build
+

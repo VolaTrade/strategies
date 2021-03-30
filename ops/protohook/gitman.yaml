@@ -1,0 +1,11 @@
+location: .
+
+sources:
+  - repo: https://github.com/volatrade/protobufs
+    name: protobufs
+    rev: master
+groups:
+  - name: proto
+    members:
+      - protobufs
+default_group: proto
