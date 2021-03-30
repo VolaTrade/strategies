@@ -2,7 +2,7 @@ FROM python:3.9-alpine AS base
 
 ARG GITHUB_TOKEN
 
-RUN apk add bash ca-certificates git protoc go 
+RUN apk --no-cache add bash ca-certificates git protoc go 
 
 ENV GOROOT /usr/lib/go
 ENV GOPATH /go
@@ -23,10 +23,8 @@ COPY ops/protohook/gitman.yaml .
 COPY ops/protohook/write_protos.py . 
 COPY ops/protohook/git.py . 
 
-RUN pip install gitman
+RUN pip install  --no-cache-dir gitman
 RUN gitman update
-
-RUN ls *
 
 RUN git config --global user.email "donotreply@volatrade.org"
 RUN git config --global user.name "Automation Bot"

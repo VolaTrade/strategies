@@ -7,5 +7,3 @@ if __name__ == '__main__':
         attr_name = file.replace(".proto", "")
         system(f"cp proto_files/{proto_file} protobufs/strategies/{attr_name}/{file}")
     
-
-

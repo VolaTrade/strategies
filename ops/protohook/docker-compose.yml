@@ -1,10 +1,9 @@
 version: "3.5"
 
 services:
-
   proto_uploader:
     container_name: proto_uploader
-    build: 
+    build:
       context: ../../
       dockerfile: ops/protohook/Dockerfile
       args:
