@@ -1,6 +1,7 @@
 // echo.proto
 syntax = "proto3";
 package echo;
+option go_package = "./;echo";
 
 // The request message containing the user's message.
 message EchoRequest {

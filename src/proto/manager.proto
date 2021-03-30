@@ -1,6 +1,7 @@
 // manager.proto 
 syntax = "proto3";
 package manager; 
+option go_package = "./;manager";
 
 message SpawnRequest {
     string sessionID = 1; 

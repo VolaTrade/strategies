@@ -1,6 +1,7 @@
 //updater.proto
 syntax = "proto3";
 package executor; 
+option go_package = "./;executor";
 
 message ExecuteRequest {
     map<string, double> stratParams = 1;
