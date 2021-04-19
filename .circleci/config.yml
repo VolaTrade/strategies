@@ -1,5 +1,8 @@
 version: 2.1
-
+parameters:
+  image-tag:
+    type: string
+    default: "latest"
 orbs:
   python: circleci/python@0.2.1
 
@@ -12,7 +15,7 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
-          command: touch src/__init__.py
+          command: touch src/__init__.py && echo $<< pipeline.parameters.image-tag >>
           name: Initializing /src as Python Module
 
       - run:
